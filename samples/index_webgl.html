@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGL Homepage</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+
+<script src="https://threejs.org/build/three.js"></script>
+
+<script>
+  // Set up scene, camera, and renderer
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // Create a cube
+  var geometry = new THREE.BoxGeometry();
+  var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  var cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  // Position the camera
+  camera.position.z = 5;
+
+  // Create a gradient background
+  var canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 256;
+  var context = canvas.getContext("2d");
+  var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, "#1e90ff");
+  gradient.addColorStop(1, "#87cefa");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  var backgroundTexture = new THREE.CanvasTexture(canvas);
+  scene.background = backgroundTexture;
+
+  // Create animation loop
+  var animate = function () {
+    requestAnimationFrame(animate);
+
+    // Rotate the cube
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+  };
+
+  animate();
+
+  // Handle window resize
+  window.addEventListener('resize', function () {
+    var newWidth = window.innerWidth;
+    var newHeight = window.innerHeight;
+
+    camera.aspect = newWidth / newHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(newWidth, newHeight);
+  });
+</script>
+
+</body>
+</html>
