@@ -3,7 +3,7 @@
 # FileName:     local
 # Author:       8ucchiman
 # CreatedDate:  2023-11-12 20:51:23
-# LastModified: 2023-12-20 21:53:38
+# LastModified: 2023-12-21 11:44:23
 # Reference:    8ucchiman.jp
 # Description:  ---
 #
@@ -16,7 +16,14 @@ function deno_init () {
     deno init --unstable .
 }
 
+function react_setup () {
+    npx create-react-app react-webgl-app --template typescript
+}
 
+
+function chatgpt () {
+        #https://chat.openai.com/share/69760931-7d7e-4237-b258-8f82dffd6e35
+}
 
 function linit () {
     echo "init"
@@ -24,6 +31,7 @@ function linit () {
 
 function lsetup () {
     echo "setup"
+    npm install three react-three-fiber
 }
 
 function lopen () {
